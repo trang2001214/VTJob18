@@ -1,0 +1,61 @@
+﻿@model IEnumerable<BtlJobFinderVT.Models.TaiKhoan>
+
+@{
+    ViewData["Title"] = "Quản lý tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="slim-pageheader">
+    <ol class="breadcrumb slim-breadsrumb">
+        <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a></li>
+        <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="TaiKhoans" asp-action="Index">Danh sách tài khoản</a></li>
+        <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="TaiKhoans" asp-action="Create">Tạo mới tài khoản</a></li>
+    </ol>
+    <h6 class="slim-pagetitle">Quản lý tài khoản</h6>
+</div><!--slim-pageheader-->
+<div class="section-wrapper">
+    <div class="table-responsive">
+        <table class="table mg-b-0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>HỌ VÀ TÊN</th>
+                    <th>TRẠNG THÁI</th>
+                    <th>QUYỀN TRUY CẬP</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count() > 0)
+                {
+                    foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">@item.AccountId</th>
+                        <td>
+                            <p>Họ và tên : @item.FullName</p>
+                            <p>Email : @item.Email</p>
+                            <p>Số điện thoại : @item.Phone</p>
+                            <p>Last login : @item.LastLogin</p>
+                        </td>
+                        <td>
+                            @if (item.Active == true)
+                            {
+                        <span class="badge badge-primary">Active</span>
+                            }
+                            else {
+                            <span class="badge badge-primary">Block</span>
+                                }
+                        </td>
+                        <td>@item.Role.RoleDescription</td>
+                        <td>
+                            <a asp-area="Admin" asp-controller="TaiKhoans" asp-action="Details" asp-route-id="@item.AccountId" class=""></a>
+                            <a asp-area="Admin" asp-controller="TaiKhoans" asp-action="Edit" asp-route-id="@item.AccountId" class=""></a>
+                            <a asp-area="Admin" asp-controller="TaiKhoans" asp-action="Delete" asp-route-id="@item.AccountId" class=""></a>
+                        </td>
+                    </tr>
+                }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
